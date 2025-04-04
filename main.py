@@ -1,6 +1,7 @@
 import requests
 
 def check_url(url):
+    print("helo")
     try:
         response = requests.get(url, timeout=10)
         print(f"Response status code: {response.status_code}")
