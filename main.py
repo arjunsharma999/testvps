@@ -1,7 +1,7 @@
 import requests
 
 # Target server
-new_server = "http://103.174.102.113/home.php"
+new_server = "http://103.174.102.113/"
 
 # Append %22 (which is URL encoded for double quote) at the end of the data string
 params = {
