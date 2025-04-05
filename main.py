@@ -25,10 +25,8 @@ async def receive_iot_data(
     
     if data:
         try:
-    
             data_values = data.split(',')
             
-
             logger.info(f"Parsed {len(data_values)} values from device {id}")
             
             if len(data_values) > 0 and len(data_values[0]) == 10:
@@ -36,11 +34,9 @@ async def receive_iot_data(
                 logger.info(f"Timestamp: {timestamp}")
             
 
-            
         except Exception as e:
             logger.error(f"Error processing data: {e}")
             
-    
     return "ACK"
 
 # Add a health check endpoint
@@ -49,5 +45,4 @@ async def health_check():
     return "OK"
 
 if __name__ == "__main__":
-    # Run the server using Uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="::", port=5000)
