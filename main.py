@@ -1,26 +1,53 @@
-import requests
+from fastapi import FastAPI, Query
+from fastapi.responses import PlainTextResponse
+import logging
+import uvicorn
+from typing import Optional
 
-new_server = "http://103.174.102.113/home.php"
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler("iot_data.log"), logging.StreamHandler()]
+)
+logger = logging.getLogger('iot_endpoint')
 
-# Sam
-params = {
-    "id": "TIH_AGRI1",
-    "data": "0912221305,21.27,24.88,00320,0018,0026,0012,06.99,0.3,12.4"
-}
+# Initialize FastAPI app
+app = FastAPI(title="IoT Data Receiver")
 
-try:
-    # Make request to new server
-    response = requests.get(new_server, params=params)
+@app.get("/home.php", response_class=PlainTextResponse)
+async def receive_iot_data(
+    id: str = Query(..., description="Device ID"),
+    data: str = Query(..., description="Comma-separated sensor data")
+):
+
+    logger.info(f"Received data from device {id}: {data}")
     
-    # Print the response
-    print(f"Status Code: {response.status_code}")
-    print(f"Response Content: {response.text}")
+    if data:
+        try:
     
-    # Check if response contains "ACK"
-    if "ACK" in response.text:
-        print("Success! New server is returning ACK as expected.")
-    else:
-        print("Warning: New server response does not contain ACK.")
-        
-except Exception as e:
-    print(f"Error occurred: {e}")
+            data_values = data.split(',')
+            
+
+            logger.info(f"Parsed {len(data_values)} values from device {id}")
+            
+            if len(data_values) > 0 and len(data_values[0]) == 10:
+                timestamp = data_values[0]
+                logger.info(f"Timestamp: {timestamp}")
+            
+
+            
+        except Exception as e:
+            logger.error(f"Error processing data: {e}")
+            
+    
+    return "ACK"
+
+# Add a health check endpoint
+@app.get("/health", response_class=PlainTextResponse)
+async def health_check():
+    return "OK"
+
+if __name__ == "__main__":
+    # Run the server using Uvicorn
+    uvicorn.run(app, host="localhost", port=5000)

@@ -1,0 +1,6 @@
+2025-04-05 10:28:29,792 - iot_endpoint - INFO - Received data from device TIH_AGRI1: 0912221305,21.27,24.88,00320,0018,0026,0012,06.99,0.3,12.4
+2025-04-05 10:28:29,792 - iot_endpoint - INFO - Parsed 10 values from device TIH_AGRI1
+2025-04-05 10:28:29,792 - iot_endpoint - INFO - Timestamp: 0912221305
+2025-04-05 10:30:04,517 - iot_endpoint - INFO - Received data from device TIH_AGRI1: 0912221305,21.27,24.88,00320,0018,0026,0012,06.99,0.3,12.4
+2025-04-05 10:30:04,517 - iot_endpoint - INFO - Parsed 10 values from device TIH_AGRI1
+2025-04-05 10:30:04,517 - iot_endpoint - INFO - Timestamp: 0912221305
