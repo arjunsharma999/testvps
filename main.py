@@ -45,4 +45,4 @@ async def health_check():
     return "OK"
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="::", port=5000)
+    uvicorn.run(app, host="103.212.120.252", port=5000)
